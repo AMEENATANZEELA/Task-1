@@ -1,0 +1,16 @@
+import pandas as pd
+df = pd.read_csv('C:/Users/AMEENA TANZEELA/Downloads/netflix_titles.csv')
+df.info()
+df.dropna(inplace=True)
+df.drop_duplicates(inplace=True)
+df.astype(str)
+df.columns = (
+    df.columns
+    .str.strip()
+    .str.lower())
+df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce', dayfirst=True)
+df['show_id'] = df['show_id'].str.replace('s', '', regex=False)
+df['show_id']=pd.to_numeric(df['show_id'])
+df.to_excel("cleaned_data.xlsx",index=False)
+p=pd.read_excel('C:/Users/AMEENA TANZEELA/cleaned_data.xlsx')
+p.info()
